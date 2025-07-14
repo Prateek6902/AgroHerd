@@ -1,0 +1,16 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom base styling */
+body {
+  @apply bg-[#f4f1de] text-[#3d405b] font-sans;
+}
+
+h1, h2, h3, h4 {
+  @apply text-[#3d405b];
+}
+
+button {
+  @apply transition-all duration-200 ease-in-out;
+}
