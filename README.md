@@ -1,11 +1,11 @@
-#**🌿 AgroHerd**
+# **🌿 AgroHerd**
 
-#***📌 Overview***
+## ***📌 Overview***
 
 AgroHerd is a full-stack web application designed to help farmers and livestock managers digitally manage and monitor animals, sheds, feed schedules, and farm products. The platform combines modern UI/UX with real-time functionality and database-driven analytics, providing a seamless experience for rural and commercial livestock operations.
 This system aims to digitalize livestock farming, reduce manual work, and offer intelligent analytics — all through a clean and intuitive dashboard.
 
-#***💡 Key Functional Modules***
+## ***💡 Key Functional Modules***
 
 🐮 Animal Management
 
@@ -64,7 +64,7 @@ Reusable UI Components: Built React components such as AnimalCard, Sidebar, Head
 Responsive Design: Mobile-friendly design with Flexbox/Grid using Tailwind utility classes.
 Real-time Analytics Calculations: Aggregations like total animals per breed/age group using MongoDB’s $group pipeline.
 
-#***🎨 Frontend Highlights***
+## ***🎨 Frontend Highlights***
 
 Modern UI with animations (scale on hover, blur modals, shadows)
 Fully responsive with light/dark-friendly color palette
@@ -72,7 +72,7 @@ Dashboard illustration banners and animated buttons
 Font integration using Google Fonts: Love Ya Like A Sister, Londrina Shadow, etc.
 Split-colored glowing AgroHerd logo with capsule border
 
-#***📂 Backend Highlights***
+## ***📂 Backend Highlights***
 
 RESTful API design (/api/animals, /api/sheds, /api/products, /api/feedings)
 Express routers & controllers for each resource
@@ -80,7 +80,7 @@ MongoDB relations via ObjectId for user and shed fields
 Validation logic: animal cannot be added to incompatible or full shed
 CRUD support with pagination-ready structure (if needed in future)
 
-#***🛡️ Security & Best Practices***
+## ***🛡️ Security & Best Practices***
 
 All protected routes require JWT via Authorization headers
 Passwords hashed using bcrypt
@@ -88,7 +88,7 @@ Passwords hashed using bcrypt
 Input validation on both frontend & backend
 Token storage handled via localStorage
 
-#***📦 Potential Use Cases***
+## ***📦 Potential Use Cases***
 
 Smart dairy farms
 Rural livestock tracking systems
@@ -96,7 +96,7 @@ AgriTech solutions targeting farmers in developing regions
 Educational simulation for agriculture institutes
 Data management for veterinary services
 
-#***📈 Future Enhancements***
+## ***📈 Future Enhancements***
 
 PDF report exports (feeding logs, animal count)
 Role-based dashboards (vets, admins, farmers)
@@ -106,7 +106,7 @@ Notifications and feeding reminders
 
 ---
 
-#*** 📂 Project Structure***
+## *** 📂 Project Structure***
 ```
 AgroHerd/
 ├── backend/
@@ -121,21 +121,21 @@ AgroHerd/
 │ ├── pages/
 │ └── utils/
 ```
-#***🧪 Sample Login Credentials***
+## ***🧪 Sample Login Credentials***
 
 You can create users or use seeded ones:
 Email: admin@example.com
 Password: admin123
 
-#***📝 License***
+## ***📝 License***
 
 This project is licensed under the MIT License.
 
-#***🤝 Contributing***
+## ***🤝 Contributing***
 
 Pull requests are welcome! For major changes, open an issue first to discuss what you'd like to change.
 
-#***📬 Contact***
+## ***📬 Contact***
 
 Built with ❤️ by @Prateek6902
 Feedback, bugs or suggestions? Open an issue
