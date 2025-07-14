@@ -1,4 +1,4 @@
-###**🌿 AgroHerd**
+#🌿 AgroHerd
 
 AgroHerd is a modern **farm management system** that empowers farmers and livestock managers to efficiently monitor animals, sheds, products, feeding schedules, and analytics — all from one dashboard.
 
