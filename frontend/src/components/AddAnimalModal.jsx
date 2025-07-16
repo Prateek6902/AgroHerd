@@ -1,6 +1,6 @@
-// src/components/AddAnimalModal.jsx
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { isGuest } from '../utils/auth'; // ✅ import guest mode check
 
 export default function AddAnimalModal({ type, onClose, onAdded }) {
   const [ageGroup, setAgeGroup] = useState('');
@@ -10,6 +10,8 @@ export default function AddAnimalModal({ type, onClose, onAdded }) {
   const [sheds, setSheds] = useState([]);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+
+  const guest = isGuest(); // ✅ check if user is guest
 
   const breedOptions = {
     cow: ['Local', 'Jersey', 'Holstein', 'Desi'],
@@ -23,6 +25,7 @@ export default function AddAnimalModal({ type, onClose, onAdded }) {
   const ageOptions = ['0-6m', '6m-1y', '1-2y', '2+y'];
 
   useEffect(() => {
+    if (guest) return; // skip fetching sheds for guest
     const fetchSheds = async () => {
       try {
         const token = localStorage.getItem('token');
@@ -56,11 +59,16 @@ export default function AddAnimalModal({ type, onClose, onAdded }) {
     };
 
     fetchSheds();
-  }, [type]);
+  }, [type, guest]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
+
+    if (guest) {
+      setError('Guest users cannot add animals.');
+      return;
+    }
 
     if (!ageGroup || !breedGroup || !count || !shedId) {
       setError('All fields are required.');
@@ -111,26 +119,34 @@ export default function AddAnimalModal({ type, onClose, onAdded }) {
       >
         <h3 className="text-2xl font-bold capitalize text-center">Add {type}</h3>
 
-        <div>
-          <label className="block text-sm font-medium mb-1">Select Shed</label>
-          <select
-            className="w-full border p-2 rounded"
-            value={shedId}
-            onChange={(e) => setShedId(e.target.value)}
-            required
-          >
-            <option value="">Select Shed</option>
-            {sheds.map((shed) => (
-              <option
-                key={shed._id}
-                value={shed._id}
-                disabled={parseInt(count || 0) > shed.remaining}
-              >
-                {shed.name} (Remaining: {shed.remaining})
-              </option>
-            ))}
-          </select>
-        </div>
+        {guest && (
+          <p className="text-yellow-700 text-sm text-center font-semibold">
+            You are in guest mode. You can view but not add animals.
+          </p>
+        )}
+
+        {!guest && (
+          <div>
+            <label className="block text-sm font-medium mb-1">Select Shed</label>
+            <select
+              className="w-full border p-2 rounded"
+              value={shedId}
+              onChange={(e) => setShedId(e.target.value)}
+              required
+            >
+              <option value="">Select Shed</option>
+              {sheds.map((shed) => (
+                <option
+                  key={shed._id}
+                  value={shed._id}
+                  disabled={parseInt(count || 0) > shed.remaining}
+                >
+                  {shed.name} (Remaining: {shed.remaining})
+                </option>
+              ))}
+            </select>
+          </div>
+        )}
 
         <div>
           <label className="block text-sm font-medium mb-1">Age Group</label>
@@ -194,9 +210,9 @@ export default function AddAnimalModal({ type, onClose, onAdded }) {
             className={`px-4 py-2 text-white rounded ${
               loading ? 'bg-green-400' : 'bg-green-600 hover:bg-green-700'
             }`}
-            disabled={loading}
+            disabled={loading || guest}
           >
-            {loading ? 'Adding...' : 'Add'}
+            {loading ? 'Adding...' : guest ? 'View Only' : 'Add'}
           </button>
         </div>
       </form>

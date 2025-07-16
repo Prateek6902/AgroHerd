@@ -1,4 +1,3 @@
-// src/components/AnimalPage.jsx
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import AddAnimalModal from './AddAnimalModal';
@@ -78,20 +77,25 @@ export default function AnimalPage({ type }) {
 
   return (
     <div className="space-y-6 p-6">
-      <div className="flex items-center space-x-4">
-        <img src={meta.icon} alt={type} className="w-20 h-20 object-contain" />
-        <h2 className="text-3xl font-bold capitalize">{type} Management</h2>
+      {/* Header with capsule and icon */}
+      <div className="flex items-center gap-4 bg-green-100 rounded-full px-4 py-2 shadow-md">
+        <img src={meta.icon} alt={type} className="w-10 h-10 object-contain" />
+        <h2 className="text-2xl md:text-3xl font-extrabold capitalize text-green-800">
+          {type} Management
+        </h2>
       </div>
 
+      {/* Overview box */}
       <div className="bg-white p-4 rounded shadow space-y-2">
         <p><strong>What they eat:</strong> {meta.eats}</p>
         <p><strong>Products:</strong> {meta.products.join(', ')}</p>
         <p><strong>Total {type}s:</strong> {data.total || 0}</p>
       </div>
 
+      {/* Add Animal Section */}
       <div className="bg-white p-4 rounded shadow">
         <div className="flex justify-between items-center mb-2">
-          <h3 className="text-lg font-semibold">Add {type}</h3>
+          <h3 className="text-lg font-bold">Add {type}</h3>
           <button
             onClick={() => setShowModal(true)}
             className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700"
@@ -101,8 +105,9 @@ export default function AnimalPage({ type }) {
         </div>
       </div>
 
+      {/* Animal Entries List */}
       <div className="bg-white p-4 rounded shadow">
-        <h3 className="text-lg font-semibold mb-2">Your {type}s</h3>
+        <h3 className="text-lg font-bold mb-2">Your {type}s</h3>
         {animalEntries.length ? (
           <ul className="space-y-2">
             {animalEntries.map((a) => (
@@ -122,9 +127,10 @@ export default function AnimalPage({ type }) {
         )}
       </div>
 
+      {/* Distribution Sections */}
       <div className="grid md:grid-cols-2 gap-4">
         <div className="bg-white p-4 rounded shadow">
-          <h3 className="text-lg font-semibold mb-2">Age Group Distribution</h3>
+          <h3 className="text-lg font-bold mb-2">Age Group Distribution</h3>
           {Object.keys(data.ageGroups).length ? (
             <ul className="list-disc pl-6 space-y-1">
               {Object.entries(data.ageGroups).map(([age, count]) => (
@@ -134,7 +140,7 @@ export default function AnimalPage({ type }) {
           ) : <p className="text-sm text-gray-500">No age data available.</p>}
         </div>
         <div className="bg-white p-4 rounded shadow">
-          <h3 className="text-lg font-semibold mb-2">Breed Group Distribution</h3>
+          <h3 className="text-lg font-bold mb-2">Breed Group Distribution</h3>
           {Object.keys(data.breedGroups).length ? (
             <ul className="list-disc pl-6 space-y-1">
               {Object.entries(data.breedGroups).map(([breed, count]) => (
@@ -145,6 +151,7 @@ export default function AnimalPage({ type }) {
         </div>
       </div>
 
+      {/* Modal */}
       {showModal && (
         <AddAnimalModal
           type={type}

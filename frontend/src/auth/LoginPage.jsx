@@ -7,6 +7,8 @@ export default function LoginPage() {
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
 
+  const isRender = window.location.hostname.includes('onrender.com');
+
   const handleLogin = async () => {
     try {
       const res = await fetch('http://localhost:5000/api/auth/login', {
@@ -20,7 +22,8 @@ export default function LoginPage() {
       if (res.ok) {
         localStorage.setItem('token', data.token);
         localStorage.setItem('name', data.user.name);
-        localStorage.setItem('role', 'farmer'); // optional
+        localStorage.setItem('role', 'farmer');
+        localStorage.removeItem('guest'); // clear guest flag if present
         navigate('/dashboard');
       } else {
         alert(data.message || 'Login failed');
@@ -30,8 +33,13 @@ export default function LoginPage() {
     }
   };
 
+  const handleGuestAccess = () => {
+    localStorage.setItem('guest', 'true');
+    navigate('/dashboard');
+  };
+
   return (
-    <div className="min-h-screen flex flex-col justify-center items-center bg-green-100">
+    <div className="min-h-screen flex flex-col justify-center items-center bg-green-100 px-4">
       <div className="bg-white p-6 rounded shadow-md w-full max-w-sm">
         <h2 className="text-2xl font-bold mb-4 text-center">Login</h2>
 
@@ -58,12 +66,24 @@ export default function LoginPage() {
           Login
         </button>
 
-        <p className="text-sm text-center">
+        <p className="text-sm text-center mb-3">
           Don’t have an account?{' '}
           <a href="/register" className="text-green-600 hover:underline">
             Register
           </a>
         </p>
+
+        {isRender && (
+          <div className="text-center">
+            <p className="text-sm text-gray-500 mb-2">Want to explore without logging in?</p>
+            <button
+              onClick={handleGuestAccess}
+              className="w-full bg-yellow-400 text-black font-bold py-2 rounded hover:bg-yellow-500 transition"
+            >
+              👀 Continue as Guest
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );
